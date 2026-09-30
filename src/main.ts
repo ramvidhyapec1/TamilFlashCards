@@ -5,6 +5,7 @@ const lessons = [
   { number: 3, letter: 'இ', sound: 'short i', word: 'இலை', meaning: 'leaf', color: 'mint' },
   { number: 4, letter: 'பு', sound: 'rhyming words', word: 'புலி', meaning: 'tiger', color: 'blue' },
   { number: 5, letter: 'மா', sound: 'fruit words', word: 'மாம்பழம்', meaning: 'mango', color: 'coral' },
+  { number: 6, letter: 'வா', sound: 'read small sentences', word: 'அம்மா சாதம் சமைத்து தருவார்.', meaning: 'read Tamil sentences aloud', color: 'gold' },
 ] as const
 
 const readingWords = [
@@ -60,6 +61,29 @@ const fruitWords = [
   { word: 'மாதுளை', meaning: 'pomegranate', picture: '🔴' },
 ] as const
 
+const readingSentences = [
+  'அம்மா சாதம் சமைத்து தருவார்.',
+  'அப்பா வேலைக்கு சென்று வந்தார்.',
+  'நான் பள்ளிக்கு தினமும் செல்வேன்.',
+  'ரவி பால் குடித்து வந்தான்.',
+  'பூனை பால் குடிக்க வந்தது.',
+  'நாய் வேகமாக ஓடி சென்றது.',
+  'மீன் நீரில் நன்றாக நீந்தும்.',
+  'காகம் மரத்தில் வந்து அமர்ந்தது.',
+  'பசு புல்லை நன்றாக தின்றது.',
+  'நான் இன்று புத்தகம் படித்தேன்.',
+  'அவன் பந்து வைத்து விளையாடினான்.',
+  'அவள் அழகாக படம் வரைந்தாள்.',
+  'மழை இன்று நன்றாக பெய்தது.',
+  'சூரியன் காலையில் மேலே வந்தது.',
+  'நிலா இரவில் அழகாக தெரியும்.',
+  'மலர் தோட்டத்தில் நன்றாக பூத்தது.',
+  'குழந்தை பால் குடித்து தூங்கியது.',
+  'தம்பி பள்ளிக்கு சீக்கிரம் சென்றான்.',
+  'அக்கா எனக்கு பழம் தந்தாள்.',
+  'நான் மாம்பழம் விரும்பி சாப்பிடுவேன்.',
+] as const
+
 const vowelQuestions = [
   { letter: 'அ', sound: 'a', spokenSound: 'ah' },
   { letter: 'ஆ', sound: 'aa', spokenSound: 'aah' },
@@ -97,12 +121,12 @@ const consonantQuestions = [
 ] as const
 
 type QuizSequence = {
-  kind: 'VOWEL' | 'CONSONANT' | 'READING' | 'FRUIT'
+  kind: 'VOWEL' | 'CONSONANT' | 'READING' | 'FRUIT' | 'SENTENCE'
   level: number
   questions: readonly { letter: string; sound: string; spokenSound: string; picture?: string; rhymeGroup?: string }[]
 }
 
-const quizSequences: Record<1 | 2 | 3 | 4 | 5, QuizSequence> = {
+const quizSequences: Record<1 | 2 | 3 | 4 | 5 | 6, QuizSequence> = {
   1: { kind: 'VOWEL', level: 1, questions: vowelQuestions },
   2: { kind: 'CONSONANT', level: 2, questions: consonantQuestions },
   3: {
@@ -120,6 +144,11 @@ const quizSequences: Record<1 | 2 | 3 | 4 | 5, QuizSequence> = {
     level: 5,
     questions: fruitWords.map(({ word, meaning, picture }) => ({ letter: word, sound: meaning, spokenSound: word, picture })),
   },
+  6: {
+    kind: 'SENTENCE',
+    level: 6,
+    questions: readingSentences.map((sentence) => ({ letter: sentence, sound: sentence, spokenSound: sentence })),
+  },
 }
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
@@ -128,7 +157,12 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <span class="brand-mark" lang="ta">அ</span>
       <span class="brand-name">tamil<span>garden</span></span>
     </a>
-    <div class="path-note"><span class="path-dot" aria-hidden="true"></span> YOUR LEARNING PATH</div>
+    <div class="topbar-tools">
+      <div class="path-note"><span class="path-dot" aria-hidden="true"></span> YOUR LEARNING PATH</div>
+      <div class="streak-display" id="streak-display" aria-label="0 day current learning streak">
+        <span aria-hidden="true">✦</span><span id="streak-count">0-day streak</span>
+      </div>
+    </div>
   </header>
 
   <main id="home">
@@ -137,7 +171,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <p class="eyebrow"><span aria-hidden="true">✳</span> A LITTLE TAMIL, EVERY DAY</p>
         <h1 id="welcome-title"><span lang="ta">வணக்கம்,</span><br />little learner!</h1>
         <p class="welcome-text">Come explore the sounds, words and lovely letters of Tamil.</p>
-        <div class="welcome-note"><span aria-hidden="true">✦</span> Five little lessons. A whole new world.</div>
+        <div class="welcome-note"><span aria-hidden="true">✦</span> Six little lessons. A whole new world.</div>
       </div>
       <div class="letter-garden" aria-label="Tamil letters: அ, ஆ, இ, ஈ" role="img">
         <span class="garden-caption">SAY HELLO TO TAMIL</span>
@@ -158,7 +192,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
           <p class="eyebrow">PICK A PATH</p>
           <h2 id="lesson-heading">Choose a lesson</h2>
         </div>
-        <span class="lesson-count">5 lessons <span aria-hidden="true">·</span> start anywhere</span>
+        <span class="lesson-count">6 lessons <span aria-hidden="true">·</span> start anywhere</span>
       </div>
       <div class="lesson-grid">
         ${lessons.map((lesson) => `
@@ -166,7 +200,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
             <span class="card-topline"><span>LESSON ${String(lesson.number).padStart(2, '0')}</span><span class="card-arrow" aria-hidden="true">↗</span></span>
             <span class="card-main">
               <span class="card-letter" lang="ta" aria-hidden="true">${lesson.letter}</span>
-              <span class="card-copy"><span class="card-title">Lesson ${lesson.number}</span><span class="card-subtitle">${lesson.number === 1 ? 'All 12 vowel letters' : lesson.number === 2 ? 'All 18 consonants' : lesson.number === 3 ? 'Choose the matching Tamil word' : lesson.number === 4 ? 'Short rhyming Tamil words' : 'Name each fruit in Tamil'}</span></span>
+              <span class="card-copy"><span class="card-title">Lesson ${lesson.number}</span><span class="card-subtitle">${lesson.number === 1 ? 'All 12 vowel letters' : lesson.number === 2 ? 'All 18 consonants' : lesson.number === 3 ? 'Choose the matching Tamil word' : lesson.number === 4 ? 'Short rhyming Tamil words' : lesson.number === 5 ? 'Name each fruit in Tamil' : 'Read small sentences aloud'}</span></span>
             </span>
           </button>
         `).join('')}
@@ -191,6 +225,11 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <span class="quiz-progress-label" id="quiz-progress-label"></span>
         <span class="quiz-progress-track" id="quiz-progress" role="progressbar" aria-label="Lesson progress" aria-valuemin="0" aria-valuemax="12" aria-valuenow="1"><span class="quiz-progress-fill" id="quiz-progress-fill"></span></span>
       </div>
+      <div class="sentence-activity" id="sentence-activity" hidden>
+        <p class="sentence-to-read" id="sentence-to-read" lang="ta"></p>
+        <button class="sentence-listen" id="sentence-listen" type="button">Start speaking</button>
+        <p class="sentence-heard" id="sentence-heard" lang="ta" aria-live="polite"></p>
+      </div>
       <div class="quiz-options" id="quiz-options" role="radiogroup" aria-label="Choose the Tamil letter"></div>
       <p class="quiz-feedback" id="quiz-feedback" role="status" aria-live="polite"></p>
       <div class="quiz-completion" id="quiz-completion" role="status" hidden>
@@ -198,7 +237,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <p>You have completed Level 1!</p>
       </div>
     </section>
-    <button class="dialog-done" type="button">Back to lessons <span aria-hidden="true">→</span></button>
+    <button class="dialog-done" id="dialog-done" type="button"><span id="dialog-done-label">Back to lessons</span><span aria-hidden="true">→</span></button>
   </dialog>
 `
 
@@ -218,9 +257,104 @@ const quizProgress = document.querySelector<HTMLSpanElement>('#quiz-progress')!
 const quizProgressFill = document.querySelector<HTMLSpanElement>('#quiz-progress-fill')!
 const quizCompletion = document.querySelector<HTMLDivElement>('#quiz-completion')!
 const speakButton = document.querySelector<HTMLButtonElement>('#speak-question')!
+const sentenceActivity = document.querySelector<HTMLDivElement>('#sentence-activity')!
+const sentenceToRead = document.querySelector<HTMLParagraphElement>('#sentence-to-read')!
+const sentenceListen = document.querySelector<HTMLButtonElement>('#sentence-listen')!
+const sentenceHeard = document.querySelector<HTMLParagraphElement>('#sentence-heard')!
+const streakDisplay = document.querySelector<HTMLDivElement>('#streak-display')!
+const streakCount = document.querySelector<HTMLSpanElement>('#streak-count')!
+const dialogDoneButton = document.querySelector<HTMLButtonElement>('#dialog-done')!
+const dialogDoneLabel = document.querySelector<HTMLSpanElement>('#dialog-done-label')!
 let activeQuiz: QuizSequence | undefined
 let currentQuestionIndex = 0
 let advanceTimer: number | undefined
+
+type RecognitionResult = { transcript: string }
+type RecognitionEvent = { results: ArrayLike<ArrayLike<RecognitionResult> & { isFinal: boolean }> }
+type RecognitionErrorEvent = { error: string }
+type RecognitionInstance = {
+  lang: string
+  interimResults: boolean
+  maxAlternatives: number
+  onresult: ((event: RecognitionEvent) => void) | null
+  onerror: ((event: RecognitionErrorEvent) => void) | null
+  onend: (() => void) | null
+  start: () => void
+  abort: () => void
+}
+type RecognitionConstructor = new () => RecognitionInstance
+let activeRecognition: RecognitionInstance | undefined
+
+type SavedStreak = { count: number; lastCompletedDate: string }
+const streakStorageKey = 'tamil-garden-daily-streak'
+
+function localDateKey(date: Date) {
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
+function loadStreak(): SavedStreak {
+  try {
+    const saved = JSON.parse(localStorage.getItem(streakStorageKey) ?? 'null') as Partial<SavedStreak> | null
+    if (saved && Number.isInteger(saved.count) && (saved.count ?? 0) >= 0 && typeof saved.lastCompletedDate === 'string') {
+      return { count: saved.count!, lastCompletedDate: saved.lastCompletedDate }
+    }
+  } catch {
+    return { count: 0, lastCompletedDate: '' }
+  }
+  return { count: 0, lastCompletedDate: '' }
+}
+
+let dailyStreak = loadStreak()
+
+function renderStreak() {
+  streakCount.textContent = `${dailyStreak.count}-day streak`
+  streakDisplay.setAttribute('aria-label', `${dailyStreak.count} ${dailyStreak.count === 1 ? 'day' : 'days'} current learning streak`)
+}
+
+function recordDailyCompletion() {
+  const today = new Date()
+  const todayKey = localDateKey(today)
+  if (dailyStreak.lastCompletedDate === todayKey) return false
+
+  const yesterday = new Date(today)
+  yesterday.setDate(yesterday.getDate() - 1)
+  dailyStreak = {
+    count: dailyStreak.lastCompletedDate === localDateKey(yesterday) ? dailyStreak.count + 1 : 1,
+    lastCompletedDate: todayKey,
+  }
+  try {
+    localStorage.setItem(streakStorageKey, JSON.stringify(dailyStreak))
+  } catch {
+    // Keep the current streak visible for this visit if storage is unavailable.
+  }
+  renderStreak()
+  return true
+}
+
+function completeQuiz(quiz: QuizSequence) {
+  const streakEarned = quiz.level === 5 ? recordDailyCompletion() : false
+  const nextLesson = quiz.level < 5 ? quiz.level + 1 : undefined
+  dialogEyebrow.textContent = `LESSON 0${quiz.level} · COMPLETE`
+  dialogTitle.textContent = 'Congrats!'
+  quizCompletion.querySelector<HTMLParagraphElement>('p')!.textContent = quiz.level === 5
+    ? streakEarned
+      ? `You earned a ${dailyStreak.count}-day streak!`
+      : `Your ${dailyStreak.count}-day streak is already counted today.`
+    : nextLesson
+      ? `Lesson ${quiz.level} complete! Ready for Lesson ${nextLesson}?`
+      : `You have completed Lesson ${quiz.level}!`
+  dialogDoneLabel.textContent = nextLesson ? `Next: Lesson ${nextLesson}` : 'Back to lessons'
+  sentenceActivity.hidden = true
+  quizProgress.hidden = true
+  quizOptions.hidden = true
+  quizFeedback.hidden = true
+  quizCompletion.hidden = false
+}
+
+renderStreak()
 
 function speakQuestion() {
   if (!activeQuiz || !('speechSynthesis' in window)) return
@@ -238,7 +372,9 @@ function speakQuestion() {
       ? `Which consonant makes the ${question.sound} sound?`
       : quiz.kind === 'FRUIT'
         ? `What is the Tamil word for ${question.sound}?`
-        : `Which Tamil word means ${question.sound}?`
+        : quiz.kind === 'SENTENCE'
+          ? 'Read this Tamil sentence aloud.'
+          : `Which Tamil word means ${question.sound}?`
   const prompt = new SpeechSynthesisUtterance(promptText)
   prompt.lang = 'en-US'
   prompt.rate = 0.92
@@ -258,8 +394,33 @@ function speakQuestion() {
 function renderQuizQuestion() {
   if (!activeQuiz) return
 
+  activeRecognition?.abort()
+  activeRecognition = undefined
+
   const quiz = activeQuiz
   const question = quiz.questions[currentQuestionIndex]!
+  if (quiz.kind === 'SENTENCE') {
+    dialogTitle.textContent = 'Read this sentence aloud'
+    quizProgressLabel.textContent = `SENTENCE ${currentQuestionIndex + 1} OF ${quiz.questions.length}`
+    quizProgress.setAttribute('aria-label', `Lesson ${quiz.level} progress`)
+    quizProgress.setAttribute('aria-valuemax', String(quiz.questions.length))
+    quizProgress.setAttribute('aria-valuenow', String(currentQuestionIndex + 1))
+    quizProgressFill.style.width = `${((currentQuestionIndex + 1) / quiz.questions.length) * 100}%`
+    sentenceToRead.textContent = question.letter
+    sentenceHeard.textContent = ''
+    sentenceActivity.hidden = false
+    sentenceListen.disabled = false
+    sentenceListen.textContent = 'Start speaking'
+    quizOptions.hidden = true
+    quizFeedback.textContent = 'Tap the button, then say the sentence.'
+    quizFeedback.className = 'quiz-feedback'
+    quizFeedback.hidden = false
+    quizProgress.hidden = false
+    quizCompletion.hidden = true
+    speakQuestion()
+    return
+  }
+  sentenceActivity.hidden = true
   const distractors = question.rhymeGroup
     ? quiz.questions.filter(({ letter, rhymeGroup }) => letter !== question.letter && rhymeGroup === question.rhymeGroup)
     : Array.from({ length: 3 }, (_, index) => quiz.questions[(currentQuestionIndex + index + 1) % quiz.questions.length]!)
@@ -318,19 +479,13 @@ function renderQuizQuestion() {
   speakQuestion()
 }
 
-document.querySelector<HTMLDivElement>('.lesson-grid')!.addEventListener('click', (event) => {
-  const target = event.target
-  const button = target instanceof Element ? target.closest<HTMLButtonElement>('[data-lesson-index]') : null
-  if (!button) return
-
-  const lesson = lessons.find(({ number }) => number === Number(button.dataset.lessonIndex))
-  if (!lesson) return
-
-  const quiz = lesson.number === 1 ? quizSequences[1] : lesson.number === 2 ? quizSequences[2] : lesson.number === 3 ? quizSequences[3] : lesson.number === 4 ? quizSequences[4] : lesson.number === 5 ? quizSequences[5] : undefined
+function openLesson(lesson: (typeof lessons)[number]) {
+  const quiz = quizSequences[lesson.number]
   const isQuizLesson = quiz !== undefined
   activeQuiz = quiz
+  dialogDoneLabel.textContent = 'Back to lessons'
   dialogEyebrow.textContent = `LESSON ${String(lesson.number).padStart(2, '0')} · ${quiz?.kind ?? lesson.sound.toUpperCase()}${quiz ? ' QUIZ' : ''}`
-  dialogTitle.textContent = quiz?.kind === 'VOWEL' ? "Which letter is 'a'?" : quiz?.kind === 'READING' ? `Which word means ${quiz.questions[0].sound}?` : quiz?.kind === 'FRUIT' ? `What is the Tamil word for ${quiz.questions[0].sound}?` : quiz ? `Which consonant makes the '${quiz.questions[0].sound}' sound?` : `Say ${lesson.letter}!`
+  dialogTitle.textContent = quiz?.kind === 'VOWEL' ? "Which letter is 'a'?" : quiz?.kind === 'READING' ? `Which word means ${quiz.questions[0].sound}?` : quiz?.kind === 'FRUIT' ? `What is the Tamil word for ${quiz.questions[0].sound}?` : quiz?.kind === 'SENTENCE' ? 'Read this sentence aloud' : quiz ? `Which consonant makes the '${quiz.questions[0].sound}' sound?` : `Say ${lesson.letter}!`
   dialogLetter.textContent = lesson.letter
   dialogWord.textContent = lesson.word
   dialogMeaning.textContent = lesson.meaning
@@ -344,10 +499,89 @@ document.querySelector<HTMLDivElement>('.lesson-grid')!.addEventListener('click'
     currentQuestionIndex = 0
     renderQuizQuestion()
   }
-  lessonDialog.showModal()
+  if (!lessonDialog.open) lessonDialog.showModal()
+}
+
+document.querySelector<HTMLDivElement>('.lesson-grid')!.addEventListener('click', (event) => {
+  const target = event.target
+  const button = target instanceof Element ? target.closest<HTMLButtonElement>('[data-lesson-index]') : null
+  if (!button) return
+
+  const lesson = lessons.find(({ number }) => number === Number(button.dataset.lessonIndex))
+  if (lesson) openLesson(lesson)
 })
 
 speakButton.addEventListener('click', speakQuestion)
+
+sentenceListen.addEventListener('click', () => {
+  const recognitionWindow = window as Window & { SpeechRecognition?: RecognitionConstructor; webkitSpeechRecognition?: RecognitionConstructor }
+  const Recognition = recognitionWindow.SpeechRecognition ?? recognitionWindow.webkitSpeechRecognition
+  const quiz = activeQuiz
+  const question = quiz?.questions[currentQuestionIndex]
+  if (!Recognition || quiz?.kind !== 'SENTENCE' || !question) {
+    quizFeedback.textContent = 'Tamil voice recognition is not available here. Try the latest version of Chrome.'
+    quizFeedback.className = 'quiz-feedback is-wrong'
+    return
+  }
+
+  const recognition = new Recognition()
+  activeRecognition = recognition
+  recognition.lang = 'ta-IN'
+  recognition.interimResults = false
+  recognition.maxAlternatives = 1
+  sentenceListen.disabled = true
+  sentenceListen.textContent = 'Listening…'
+  sentenceHeard.textContent = ''
+  quizFeedback.textContent = 'Listening. Say the whole sentence.'
+  quizFeedback.className = 'quiz-feedback'
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[event.results.length - 1]?.[0]?.transcript.trim() ?? ''
+    sentenceHeard.textContent = transcript ? `I heard: ${transcript}` : 'I could not hear the sentence. Try again.'
+    const normalizeSentence = (text: string) => text.normalize('NFC').replace(/[\p{P}\p{S}]/gu, '').replace(/\s+/g, ' ').trim()
+    if (transcript && normalizeSentence(transcript) === normalizeSentence(question.letter)) {
+      quizFeedback.textContent = 'That matches! Well done.'
+      quizFeedback.className = 'quiz-feedback is-correct'
+      advanceTimer = window.setTimeout(() => {
+        advanceTimer = undefined
+        currentQuestionIndex += 1
+        if (currentQuestionIndex === quiz.questions.length) {
+          completeQuiz(quiz)
+        } else {
+          renderQuizQuestion()
+        }
+      }, 1300)
+    } else {
+      quizFeedback.textContent = 'Not quite. Listen and try reading it again.'
+      quizFeedback.className = 'quiz-feedback is-wrong'
+    }
+  }
+  recognition.onerror = (event) => {
+    sentenceListen.disabled = false
+    sentenceListen.textContent = 'Try again'
+    quizFeedback.textContent = event.error === 'not-allowed'
+      ? 'Microphone access is blocked. Allow microphone access in Chrome site settings, then try again.'
+      : event.error === 'no-speech'
+        ? 'I did not hear anything. Try again.'
+        : 'I could not recognize that. Please try again.'
+    quizFeedback.className = 'quiz-feedback is-wrong'
+  }
+  recognition.onend = () => {
+    if (activeRecognition === recognition) activeRecognition = undefined
+    if (!advanceTimer) {
+      sentenceListen.disabled = false
+      if (sentenceListen.textContent === 'Listening…') sentenceListen.textContent = 'Try again'
+    }
+  }
+  try {
+    recognition.start()
+  } catch {
+    sentenceListen.disabled = false
+    sentenceListen.textContent = 'Try again'
+    quizFeedback.textContent = 'Could not start the microphone. Please try again.'
+    quizFeedback.className = 'quiz-feedback is-wrong'
+  }
+})
 
 quizOptions.addEventListener('change', (event) => {
   const target = event.target
@@ -370,13 +604,7 @@ quizOptions.addEventListener('change', (event) => {
       advanceTimer = undefined
       currentQuestionIndex += 1
       if (currentQuestionIndex === quiz.questions.length) {
-        dialogEyebrow.textContent = `LESSON 0${quiz.level} · COMPLETE`
-        dialogTitle.textContent = 'Congrats!'
-        quizCompletion.querySelector<HTMLParagraphElement>('p')!.textContent = `You have completed Level ${quiz.level}!`
-        quizProgress.hidden = true
-        quizOptions.hidden = true
-        quizFeedback.hidden = true
-        quizCompletion.hidden = false
+        completeQuiz(quiz)
       } else {
         renderQuizQuestion()
       }
@@ -389,11 +617,21 @@ quizOptions.addEventListener('change', (event) => {
 })
 
 document.querySelector<HTMLButtonElement>('.dialog-close')!.addEventListener('click', () => lessonDialog.close())
-document.querySelector<HTMLButtonElement>('.dialog-done')!.addEventListener('click', () => lessonDialog.close())
+dialogDoneButton.addEventListener('click', () => {
+  const nextLessonNumber = activeQuiz && !quizCompletion.hidden && activeQuiz.level < 5 ? activeQuiz.level + 1 : undefined
+  const nextLesson = lessons.find(({ number }) => number === nextLessonNumber)
+  if (nextLesson) {
+    openLesson(nextLesson)
+  } else {
+    lessonDialog.close()
+  }
+})
 
 lessonDialog.addEventListener('close', () => {
   if (advanceTimer !== undefined) window.clearTimeout(advanceTimer)
   advanceTimer = undefined
+  activeRecognition?.abort()
+  activeRecognition = undefined
   if ('speechSynthesis' in window) window.speechSynthesis.cancel()
 })
 

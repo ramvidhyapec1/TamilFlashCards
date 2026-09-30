@@ -59,6 +59,7 @@ a { color: inherit; text-decoration: none; }
 }
 .brand-name { font-size: 20px; font-weight: 800; line-height: 1; }
 .brand-name span { color: var(--green); }
+.topbar-tools { display: flex; align-items: center; gap: 20px; }
 .path-note, .eyebrow, .garden-caption, .card-topline {
   font-size: 11px;
   font-weight: 800;
@@ -66,6 +67,8 @@ a { color: inherit; text-decoration: none; }
 }
 .path-note { display: flex; align-items: center; gap: 9px; color: var(--muted); }
 .path-dot { width: 8px; height: 8px; border-radius: 50%; background: #dd8c54; }
+.streak-display { min-height: 36px; padding: 6px 10px; display: flex; align-items: center; gap: 5px; border: 1px solid #eadcb4; border-radius: 7px; background: #f4e9c9; color: #71562b; font-size: 13px; font-weight: 800; white-space: nowrap; }
+.streak-display > span:first-child { color: #ce8a37; font-size: 16px; }
 
 main { flex: 1; }
 .welcome {
@@ -212,6 +215,13 @@ h2 { margin-bottom: 0; color: var(--ink); font-size: 25px; font-weight: 800; lin
 .quiz-progress-label { display: block; margin-bottom: 6px; color: #718071; font-size: 10px; font-weight: 800; }
 .quiz-progress-track { height: 6px; display: block; overflow: hidden; border-radius: 99px; background: #e8e9df; }
 .quiz-progress-fill { height: 100%; display: block; border-radius: inherit; background: #54836a; transition: width 220ms ease; }
+.sentence-activity { margin: 14px 0; }
+.sentence-to-read { margin: 0 0 14px; padding: 18px 12px; border: 1px solid #cbded0; border-radius: 8px; background: #e5efe1; color: #33493b; font-family: 'Noto Sans Tamil', sans-serif; font-size: 23px; font-weight: 700; line-height: 1.65; text-align: center; }
+.sentence-listen { width: 100%; min-height: 48px; border: 0; border-radius: 7px; background: #3f7962; color: #fffdf5; font-size: 16px; font-weight: 700; cursor: pointer; }
+.sentence-listen:hover:not(:disabled) { background: #315f4d; }
+.sentence-listen:disabled { cursor: wait; opacity: 0.72; }
+.sentence-listen:focus-visible { outline: 3px solid #263833; outline-offset: 3px; }
+.sentence-heard { min-height: 28px; margin: 10px 0 0; color: #526356; font-family: 'Noto Sans Tamil', sans-serif; font-size: 15px; line-height: 1.6; }
 .quiz-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
 .quiz-option {
   min-width: 0;
@@ -275,6 +285,9 @@ h2 { margin-bottom: 0; color: var(--ink); font-size: 25px; font-weight: 800; lin
   .brand-name { font-size: 18px; }
   .brand-mark { width: 35px; height: 35px; }
   .path-note { gap: 6px; font-size: 9px; }
+  .topbar-tools { gap: 0; }
+  .topbar-tools .path-note { display: none; }
+  .streak-display { min-height: 32px; padding-inline: 8px; font-size: 12px; }
   .welcome { padding-top: 27px; }
   .section-heading { align-items: start; flex-direction: column; gap: 4px; }
   .lesson-count { padding: 0; }
