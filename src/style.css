@@ -158,6 +158,8 @@ h2 { margin-bottom: 0; color: var(--ink); font-size: 25px; font-weight: 800; lin
 .lesson-card:nth-child(3) { animation-delay: 110ms; }
 .lesson-card:nth-child(4) { animation-delay: 165ms; }
 .lesson-card:hover { transform: translateY(-3px); box-shadow: 0 7px 15px #26383314; }
+.lesson-card.is-placeholder { opacity: 0.62; cursor: not-allowed; }
+.lesson-card.is-placeholder:hover { transform: none; box-shadow: none; }
 .lesson-card:focus-visible, .dialog-close:focus-visible, .dialog-done:focus-visible { outline: 3px solid #263833; outline-offset: 3px; }
 .card-coral { background: #f3dfd5; border-color: #ead2c6; }
 .card-gold { background: #f4e9c9; border-color: #eadcb4; }
@@ -200,6 +202,7 @@ h2 { margin-bottom: 0; color: var(--ink); font-size: 25px; font-weight: 800; lin
   color: var(--ink);
   box-shadow: 0 20px 80px #26383335;
 }
+.lesson-dialog:has(.ordering-activity:not([hidden])) { width: min(720px, calc(100% - 32px)); }
 .lesson-dialog::backdrop { background: #26383370; backdrop-filter: blur(3px); }
 .lesson-dialog [hidden] { display: none; }
 .dialog-close { width: 34px; height: 34px; position: absolute; top: 12px; right: 12px; border: 0; border-radius: 50%; background: #f1ecdf; font-size: 22px; line-height: 1; cursor: pointer; }
@@ -215,6 +218,25 @@ h2 { margin-bottom: 0; color: var(--ink); font-size: 25px; font-weight: 800; lin
 .quiz-progress-label { display: block; margin-bottom: 6px; color: #718071; font-size: 10px; font-weight: 800; }
 .quiz-progress-track { height: 6px; display: block; overflow: hidden; border-radius: 99px; background: #e8e9df; }
 .quiz-progress-fill { height: 100%; display: block; border-radius: inherit; background: #54836a; transition: width 220ms ease; }
+.ordering-activity { margin: 10px 0 18px; }
+.ordering-instruction { margin: 0 0 12px; color: #657167; font-size: 15px; }
+.ordering-slots, .ordering-options { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 7px; }
+.ordering-slots { margin-bottom: 14px; }
+.ordering-slot, .ordering-option { min-width: 0; aspect-ratio: 1; position: relative; display: grid; place-items: center; border-radius: 7px; font-family: 'Noto Sans Tamil', sans-serif; font-size: 25px; font-weight: 700; touch-action: manipulation; }
+.ordering-slot { border: 1px dashed #9aab98; background: #f1f3e9; color: #30463a; cursor: pointer; }
+.ordering-slot.is-empty { background: #f8f7f0; }
+.ordering-slot-number { position: absolute; top: 3px; left: 5px; color: #85907f; font-family: 'Baloo 2', sans-serif; font-size: 10px; font-weight: 600; line-height: 1; }
+.ordering-slot-letter { line-height: 1; }
+.ordering-slot.is-correct { border-style: solid; border-color: #54836a; background: #deeddf; color: #2e684a; cursor: grab; }
+.ordering-slot.is-wrong { border-style: solid; border-color: #cc7965; background: #f7e1da; color: #984c3f; cursor: grab; }
+.ordering-option { border: 1px solid #d8dfd1; background: #f4e9c9; color: #594827; cursor: grab; }
+.ordering-option:hover, .ordering-slot.is-correct:hover { border-color: #54836a; transform: translateY(-1px); }
+.ordering-slot.is-wrong:hover { border-color: #a75142; transform: translateY(-1px); }
+.ordering-option.is-selected { outline: 3px solid #3f7962; outline-offset: 2px; background: #deeddf; }
+.ordering-check { width: 100%; min-height: 43px; margin: 0 0 14px; border: 0; border-radius: 7px; background: #3f7962; color: #fffdf5; font-size: 15px; font-weight: 700; cursor: pointer; }
+.ordering-check:hover { background: #315f4d; }
+.ordering-check:focus-visible, .ordering-slot:focus-visible, .ordering-option:focus-visible { outline: 3px solid #263833; outline-offset: 3px; }
+.ordering-slot.is-drop-target { border-color: #ce8a37; background: #f4e9c9; }
 .sentence-activity { margin: 14px 0; }
 .sentence-to-read { margin: 0 0 14px; padding: 18px 12px; border: 1px solid #cbded0; border-radius: 8px; background: #e5efe1; color: #33493b; font-family: 'Noto Sans Tamil', sans-serif; font-size: 23px; font-weight: 700; line-height: 1.65; text-align: center; }
 .sentence-listen { width: 100%; min-height: 48px; border: 0; border-radius: 7px; background: #3f7962; color: #fffdf5; font-size: 16px; font-weight: 700; cursor: pointer; }

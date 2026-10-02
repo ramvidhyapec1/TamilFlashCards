@@ -5,7 +5,10 @@ const lessons = [
   { number: 3, letter: 'இ', sound: 'short i', word: 'இலை', meaning: 'leaf', color: 'mint' },
   { number: 4, letter: 'பு', sound: 'rhyming words', word: 'புலி', meaning: 'tiger', color: 'blue' },
   { number: 5, letter: 'மா', sound: 'fruit words', word: 'மாம்பழம்', meaning: 'mango', color: 'coral' },
-  { number: 6, letter: 'வா', sound: 'read small sentences', word: 'அம்மா சாதம் சமைத்து தருவார்.', meaning: 'read Tamil sentences aloud', color: 'gold' },
+  { number: 6, letter: 'க', sound: 'order the க series', word: 'க கா கி கீ கு கூ கெ கே கை கொ கோ கௌ', meaning: 'arrange the 12 க vowel forms in order', color: 'mint' },
+  { number: 7, letter: 'பூ', sound: 'read Tamil words aloud', word: 'பூ', meaning: '20 words each day', color: 'blue' },
+  { number: 8, letter: 'அ', sound: 'read two-word sentences', word: 'அம்மா தருவார்', meaning: 'read short Tamil sentences aloud', color: 'blue' },
+  { number: 9, letter: 'வா', sound: 'read small sentences', word: 'அம்மா சாதம் சமைத்து தருவார்.', meaning: 'read Tamil sentences aloud', color: 'gold' },
 ] as const
 
 const readingWords = [
@@ -84,49 +87,161 @@ const readingSentences = [
   'நான் மாம்பழம் விரும்பி சாப்பிடுவேன்.',
 ] as const
 
+const twoWordSentences = [
+  'அம்மா தருவார்',
+  'அப்பா தருவார்',
+  'அப்பா வந்தார்',
+  'அக்கா வந்தார்',
+  'நான் செல்வேன்',
+  'ரவி செல்வான்',
+  'ரவி வந்தான்',
+  'பூனை வந்தது',
+  'நாய் வந்தது',
+  'நாய் சென்றது',
+  'காகம் சென்றது',
+  'மீன் நீந்தும்',
+  'புலி நீந்தும்',
+  'காகம் பறந்தது',
+  'புறா பறந்தது',
+  'பசு தின்றது',
+  'ஆடு தின்றது',
+  'நான் படித்தேன்',
+  'நான் ஓடினேன்',
+  'அவன் விளையாடினான்',
+  'அவள் விளையாடினாள்',
+  'அது விளையாடியது',
+  'மழை பெய்தது',
+  'சூரியன் வந்தது',
+  'நிலா தெரியும்',
+  'மலர் பூத்தது',
+  'குழந்தை வந்தது',
+  'தம்பி விளையாடினான்',
+  'அக்கா தந்தாள்',
+  'நான் சாப்பிடுவேன்',
+] as const
+
+const lessonSevenWordBank = [
+  'பூ', 'கை', 'கால்', 'பால்', 'வா', 'போ', 'மா', 'தீ', 'ஈ', 'நாய்',
+  'அம்மா', 'அப்பா', 'அக்கா', 'அண்ணா', 'எலி', 'கிளி', 'புலி', 'மணி', 'கனி', 'பனி',
+  'மரம்', 'பழம்', 'படம்', 'குடம்', 'மலை', 'இலை', 'மழை', 'கடல்', 'நதி', 'வீடு',
+  'பூனை', 'மாடு', 'ஆடு', 'காகம்', 'பந்து', 'பெட்டி', 'சட்டை', 'தோசை', 'இட்லி', 'வாழை',
+  'அரி', 'ஆணி', 'ஆமை', 'ஆறு', 'இடி', 'இனி', 'இரவு', 'ஈரம்', 'உடல்', 'உப்பு',
+  'உரல்', 'ஊர்', 'எடை', 'எண்', 'ஏணி', 'ஐந்து', 'ஒலி', 'ஓடை', 'ஓடு', 'கடை',
+  'கதை', 'கயிறு', 'கரை', 'கலம்', 'கல்', 'காய்', 'காடு', 'காது', 'கிணறு', 'கிழங்கு',
+  'குடை', 'குதிரை', 'குளம்', 'கூடு', 'கேக்', 'கோல்', 'கோழி', 'சக்கரம்', 'சங்கு', 'சதை',
+  'சனி', 'சுவர்', 'செடி', 'செருப்பு', 'சேலை', 'சொல்', 'சோறு', 'தட்டு', 'தமிழ்', 'தலை',
+  'தவளை', 'தடி', 'தரை', 'தாய்', 'தாத்தா', 'தாமரை', 'திரை', 'துணி', 'தூண்', 'தேன்',
+  'தோல்', 'நகம்', 'நண்டு', 'நரி', 'நாக்கு', 'நாடு', 'நூல்', 'நெல்', 'பசி', 'பட்டம்',
+  'பட்டி', 'பயறு', 'பருப்பு', 'பல்', 'பறவை', 'பாம்பு', 'பானை', 'பாசி', 'பிடி', 'பீலி',
+  'பூட்டு', 'பேரி', 'பொம்மை', 'மண்', 'மதி', 'மயில்', 'மிளகு', 'முடி', 'மூக்கு', 'மேகம்',
+  'யானை', 'ரவை', 'வடை', 'வண்டி', 'வண்ணம்', 'வாசல்', 'விதை', 'வெடி', 'வெயில்', 'வேலி',
+] as const
+
+const tamilVowelSigns = ['', 'ா', 'ி', 'ீ', 'ு', 'ூ', 'ெ', 'ே', 'ை', 'ொ', 'ோ', 'ௌ'] as const
+
 const vowelQuestions = [
-  { letter: 'அ', sound: 'a', spokenSound: 'ah' },
-  { letter: 'ஆ', sound: 'aa', spokenSound: 'aah' },
-  { letter: 'இ', sound: 'i', spokenSound: 'ih' },
-  { letter: 'ஈ', sound: 'ee', spokenSound: 'ee' },
-  { letter: 'உ', sound: 'u', spokenSound: 'uh' },
-  { letter: 'ஊ', sound: 'oo', spokenSound: 'oo' },
-  { letter: 'எ', sound: 'e', spokenSound: 'eh' },
-  { letter: 'ஏ', sound: 'ay', spokenSound: 'ay' },
-  { letter: 'ஐ', sound: 'ai', spokenSound: 'eye' },
-  { letter: 'ஒ', sound: 'o', spokenSound: 'aw' },
-  { letter: 'ஓ', sound: 'oh', spokenSound: 'oh' },
-  { letter: 'ஔ', sound: 'au', spokenSound: 'ow' },
+  { letter: 'அ', sound: 'short a', spokenSound: 'ah', example: 'cup' },
+  { letter: 'ஆ', sound: 'long aa', spokenSound: 'aah', example: 'father' },
+  { letter: 'இ', sound: 'short i', spokenSound: 'ih', example: 'sit' },
+  { letter: 'ஈ', sound: 'long ee', spokenSound: 'ee', example: 'see' },
+  { letter: 'உ', sound: 'short u', spokenSound: 'uh', example: 'put' },
+  { letter: 'ஊ', sound: 'long oo', spokenSound: 'oo', example: 'moon' },
+  { letter: 'எ', sound: 'short e', spokenSound: 'eh', example: 'bed' },
+  { letter: 'ஏ', sound: 'long e', spokenSound: 'ay', example: 'they' },
+  { letter: 'ஐ', sound: 'eye (ai)', spokenSound: 'eye', example: 'like' },
+  { letter: 'ஒ', sound: 'short o', spokenSound: 'aw', example: 'off' },
+  { letter: 'ஓ', sound: 'long o', spokenSound: 'oh', example: 'go' },
+  { letter: 'ஔ', sound: 'ow (au)', spokenSound: 'ow', example: 'cow' },
 ] as const
 
 const consonantQuestions = [
-  { letter: 'க்', sound: 'k', spokenSound: 'ka' },
-  { letter: 'ங்', sound: 'ṅ', spokenSound: 'nga, as in sing' },
-  { letter: 'ச்', sound: 'c', spokenSound: 'cha' },
-  { letter: 'ஞ்', sound: 'ñ', spokenSound: 'nya' },
-  { letter: 'ட்', sound: 'ṭ', spokenSound: 'retroflex ta' },
-  { letter: 'ண்', sound: 'ṇ', spokenSound: 'retroflex na' },
-  { letter: 'த்', sound: 't', spokenSound: 'tha' },
-  { letter: 'ந்', sound: 'n', spokenSound: 'na' },
-  { letter: 'ப்', sound: 'p', spokenSound: 'pa' },
-  { letter: 'ம்', sound: 'm', spokenSound: 'ma' },
-  { letter: 'ய்', sound: 'y', spokenSound: 'ya' },
-  { letter: 'ர்', sound: 'r', spokenSound: 'ra' },
-  { letter: 'ல்', sound: 'l', spokenSound: 'la' },
-  { letter: 'வ்', sound: 'v', spokenSound: 'va' },
-  { letter: 'ழ்', sound: 'ḻ', spokenSound: 'zha' },
-  { letter: 'ள்', sound: 'ḷ', spokenSound: 'retroflex la' },
-  { letter: 'ற்', sound: 'ṟ', spokenSound: 'rolled ra' },
-  { letter: 'ன்', sound: 'ṉ', spokenSound: 'alveolar na' },
+  { letter: 'க்', sound: 'k', spokenSound: 'ka', pronunciationHint: 'as in "kite"' },
+  { letter: 'ங்', sound: 'ng', spokenSound: 'nga', pronunciationHint: 'at the end of "sing"' },
+  { letter: 'ச்', sound: 'ch', spokenSound: 'cha', pronunciationHint: 'as in "chair"' },
+  { letter: 'ஞ்', sound: 'ny', spokenSound: 'nya', pronunciationHint: 'like the middle sound in "canyon"' },
+  { letter: 'ட்', sound: 'retroflex t', spokenSound: 'retroflex ta', pronunciationHint: 'with your tongue curled back' },
+  { letter: 'ண்', sound: 'retroflex n', spokenSound: 'retroflex na', pronunciationHint: 'with your tongue curled back' },
+  { letter: 'த்', sound: 'dental t', spokenSound: 'tha', pronunciationHint: 'with your tongue touching your upper teeth' },
+  { letter: 'ந்', sound: 'n', spokenSound: 'na', pronunciationHint: 'as in "net"' },
+  { letter: 'ப்', sound: 'p', spokenSound: 'pa', pronunciationHint: 'as in "pen"' },
+  { letter: 'ம்', sound: 'm', spokenSound: 'ma', pronunciationHint: 'as in "man"' },
+  { letter: 'ய்', sound: 'y', spokenSound: 'ya', pronunciationHint: 'as in "yes"' },
+  { letter: 'ர்', sound: 'tapped r', spokenSound: 'ra', pronunciationHint: 'with one quick tongue tap' },
+  { letter: 'ல்', sound: 'l', spokenSound: 'la', pronunciationHint: 'as in "leaf"' },
+  { letter: 'வ்', sound: 'v/w', spokenSound: 'va', pronunciationHint: 'between the sounds in "van" and "wet"' },
+  { letter: 'ழ்', sound: 'Tamil zh', spokenSound: 'zha', pronunciationHint: 'the special sound in "தமிழ்"' },
+  { letter: 'ள்', sound: 'retroflex l', spokenSound: 'retroflex la', pronunciationHint: 'with your tongue curled back' },
+  { letter: 'ற்', sound: 'trilled r', spokenSound: 'rolled ra', pronunciationHint: 'with a quick tongue trill' },
+  { letter: 'ன்', sound: 'alveolar n', spokenSound: 'alveolar na', pronunciationHint: 'with your tongue at the ridge behind your teeth' },
 ] as const
 
+const lessonSixConsonantOrder = ['க்', 'ச்', 'ங்', 'ஞ்', 'ட்', 'ண்', 'த்', 'ந்', 'ப்', 'ம்', 'ய்', 'ர்', 'ல்', 'வ்', 'ழ்', 'ள்', 'ற்', 'ன்'] as const
+
+const consonantVowelSeries = lessonSixConsonantOrder.map((letter) => {
+  const consonant = letter.replace('்', '')
+  return {
+    consonant,
+    forms: tamilVowelSigns.map((sign) => `${consonant}${sign}`),
+  }
+})
+
 type QuizSequence = {
-  kind: 'VOWEL' | 'CONSONANT' | 'READING' | 'FRUIT' | 'SENTENCE'
+  kind: 'VOWEL' | 'CONSONANT' | 'READING' | 'FRUIT' | 'ORDERING' | 'SENTENCE' | 'WORD_READING'
   level: number
-  questions: readonly { letter: string; sound: string; spokenSound: string; picture?: string; rhymeGroup?: string }[]
+  questions: readonly { letter: string; sound: string; spokenSound: string; example?: string; pronunciationHint?: string; picture?: string; rhymeGroup?: string }[]
 }
 
-const quizSequences: Record<1 | 2 | 3 | 4 | 5 | 6, QuizSequence> = {
+function shuffleItems<T>(items: readonly T[]): T[] {
+  const shuffledItems = [...items]
+  for (let index = shuffledItems.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1))
+    ;[shuffledItems[index], shuffledItems[swapIndex]] = [shuffledItems[swapIndex]!, shuffledItems[index]!]
+  }
+  return shuffledItems
+}
+
+function normalizeSpeech(text: string) {
+  return text.normalize('NFC').replace(/[\p{P}\p{S}]/gu, '').replace(/\s+/g, ' ').trim()
+}
+
+const lessonSevenWordStorageKey = 'tamil-garden-daily-reading-words'
+let cachedLessonSevenWords: { date: string; words: string[] } | undefined
+
+function getDailyLessonSevenWords() {
+  const today = localDateKey(new Date())
+  if (cachedLessonSevenWords?.date === today) return cachedLessonSevenWords.words
+
+  try {
+    const saved = JSON.parse(localStorage.getItem(lessonSevenWordStorageKey) ?? 'null') as { date?: string; words?: string[] } | null
+    if (saved?.date === today && Array.isArray(saved.words) && saved.words.length === 20
+      && new Set(saved.words).size === 20
+      && saved.words.every((word) => lessonSevenWordBank.includes(word as typeof lessonSevenWordBank[number]))) {
+      cachedLessonSevenWords = { date: today, words: saved.words }
+      return saved.words
+    }
+  } catch {
+    cachedLessonSevenWords = undefined
+  }
+
+  const words = shuffleItems(lessonSevenWordBank).slice(0, 20)
+  cachedLessonSevenWords = { date: today, words }
+  try {
+    localStorage.setItem(lessonSevenWordStorageKey, JSON.stringify(cachedLessonSevenWords))
+  } catch {
+    return words
+  }
+  return words
+}
+
+function createDailyWordQuiz(): QuizSequence {
+  return {
+    kind: 'WORD_READING',
+    level: 7,
+    questions: getDailyLessonSevenWords().map((word) => ({ letter: word, sound: word, spokenSound: word })),
+  }
+}
+
+const quizSequences: Partial<Record<1 | 2 | 3 | 4 | 5 | 6 | 8 | 9, QuizSequence>> = {
   1: { kind: 'VOWEL', level: 1, questions: vowelQuestions },
   2: { kind: 'CONSONANT', level: 2, questions: consonantQuestions },
   3: {
@@ -145,8 +260,18 @@ const quizSequences: Record<1 | 2 | 3 | 4 | 5 | 6, QuizSequence> = {
     questions: fruitWords.map(({ word, meaning, picture }) => ({ letter: word, sound: meaning, spokenSound: word, picture })),
   },
   6: {
-    kind: 'SENTENCE',
+    kind: 'ORDERING',
     level: 6,
+    questions: consonantVowelSeries.map(({ consonant }) => ({ letter: consonant, sound: consonant, spokenSound: consonant })),
+  },
+  8: {
+    kind: 'SENTENCE',
+    level: 8,
+    questions: twoWordSentences.map((sentence) => ({ letter: sentence, sound: sentence, spokenSound: sentence })),
+  },
+  9: {
+    kind: 'SENTENCE',
+    level: 9,
     questions: readingSentences.map((sentence) => ({ letter: sentence, sound: sentence, spokenSound: sentence })),
   },
 }
@@ -171,7 +296,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <p class="eyebrow"><span aria-hidden="true">✳</span> A LITTLE TAMIL, EVERY DAY</p>
         <h1 id="welcome-title"><span lang="ta">வணக்கம்,</span><br />little learner!</h1>
         <p class="welcome-text">Come explore the sounds, words and lovely letters of Tamil.</p>
-        <div class="welcome-note"><span aria-hidden="true">✦</span> Six little lessons. A whole new world.</div>
+        <div class="welcome-note"><span aria-hidden="true">✦</span> Nine little lessons. A whole new world.</div>
       </div>
       <div class="letter-garden" aria-label="Tamil letters: அ, ஆ, இ, ஈ" role="img">
         <span class="garden-caption">SAY HELLO TO TAMIL</span>
@@ -192,7 +317,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
           <p class="eyebrow">PICK A PATH</p>
           <h2 id="lesson-heading">Choose a lesson</h2>
         </div>
-        <span class="lesson-count">6 lessons <span aria-hidden="true">·</span> start anywhere</span>
+        <span class="lesson-count">9 lessons <span aria-hidden="true">·</span> start anywhere</span>
       </div>
       <div class="lesson-grid">
         ${lessons.map((lesson) => `
@@ -200,7 +325,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
             <span class="card-topline"><span>LESSON ${String(lesson.number).padStart(2, '0')}</span><span class="card-arrow" aria-hidden="true">↗</span></span>
             <span class="card-main">
               <span class="card-letter" lang="ta" aria-hidden="true">${lesson.letter}</span>
-              <span class="card-copy"><span class="card-title">Lesson ${lesson.number}</span><span class="card-subtitle">${lesson.number === 1 ? 'All 12 vowel letters' : lesson.number === 2 ? 'All 18 consonants' : lesson.number === 3 ? 'Choose the matching Tamil word' : lesson.number === 4 ? 'Short rhyming Tamil words' : lesson.number === 5 ? 'Name each fruit in Tamil' : 'Read small sentences aloud'}</span></span>
+              <span class="card-copy"><span class="card-title">Lesson ${lesson.number}</span><span class="card-subtitle">${lesson.number === 1 ? 'All 12 vowel letters' : lesson.number === 2 ? 'All 18 consonants' : lesson.number === 3 ? 'Choose the matching Tamil word' : lesson.number === 4 ? 'Short rhyming Tamil words' : lesson.number === 5 ? 'Name each fruit in Tamil' : lesson.number === 7 ? 'Read 20 Tamil words daily' : lesson.number === 8 ? 'Read two-word Tamil sentences' : lesson.number === 9 ? 'Read small sentences aloud' : 'Put the க series in order'}</span></span>
             </span>
           </button>
         `).join('')}
@@ -214,7 +339,6 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     <button class="dialog-close" type="button" aria-label="Close lesson preview">×</button>
     <p class="eyebrow dialog-eyebrow" id="dialog-eyebrow"></p>
     <h2 id="dialog-title"></h2>
-    <button class="speak-button" id="speak-question" type="button" hidden><span aria-hidden="true">♫</span> Hear it again</button>
     <div class="word-card" id="word-card">
       <span class="word-letter" id="dialog-letter" lang="ta"></span>
       <span class="word-details"><span class="tamil-word" id="dialog-word" lang="ta"></span><span class="word-meaning" id="dialog-meaning"></span></span>
@@ -225,6 +349,12 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <span class="quiz-progress-label" id="quiz-progress-label"></span>
         <span class="quiz-progress-track" id="quiz-progress" role="progressbar" aria-label="Lesson progress" aria-valuemin="0" aria-valuemax="12" aria-valuenow="1"><span class="quiz-progress-fill" id="quiz-progress-fill"></span></span>
       </div>
+      <section class="ordering-activity" id="ordering-activity" aria-label="Tamil letter ordering activity" hidden>
+        <p class="ordering-instruction">Arrange each consonant's 12 vowel forms in Tamil vowel order.</p>
+        <div class="ordering-slots" id="ordering-slots" aria-label="Answer order"></div>
+        <button class="ordering-check" id="ordering-check" type="button">Check order</button>
+        <div class="ordering-options" id="ordering-options" aria-label="Available Tamil letters"></div>
+      </section>
       <div class="sentence-activity" id="sentence-activity" hidden>
         <p class="sentence-to-read" id="sentence-to-read" lang="ta"></p>
         <button class="sentence-listen" id="sentence-listen" type="button">Start speaking</button>
@@ -256,11 +386,14 @@ const quizProgressLabel = document.querySelector<HTMLSpanElement>('#quiz-progres
 const quizProgress = document.querySelector<HTMLSpanElement>('#quiz-progress')!
 const quizProgressFill = document.querySelector<HTMLSpanElement>('#quiz-progress-fill')!
 const quizCompletion = document.querySelector<HTMLDivElement>('#quiz-completion')!
-const speakButton = document.querySelector<HTMLButtonElement>('#speak-question')!
 const sentenceActivity = document.querySelector<HTMLDivElement>('#sentence-activity')!
 const sentenceToRead = document.querySelector<HTMLParagraphElement>('#sentence-to-read')!
 const sentenceListen = document.querySelector<HTMLButtonElement>('#sentence-listen')!
 const sentenceHeard = document.querySelector<HTMLParagraphElement>('#sentence-heard')!
+const orderingActivity = document.querySelector<HTMLElement>('#ordering-activity')!
+const orderingSlotsElement = document.querySelector<HTMLDivElement>('#ordering-slots')!
+const orderingOptionsElement = document.querySelector<HTMLDivElement>('#ordering-options')!
+const orderingCheckButton = document.querySelector<HTMLButtonElement>('#ordering-check')!
 const streakDisplay = document.querySelector<HTMLDivElement>('#streak-display')!
 const streakCount = document.querySelector<HTMLSpanElement>('#streak-count')!
 const dialogDoneButton = document.querySelector<HTMLButtonElement>('#dialog-done')!
@@ -268,6 +401,10 @@ const dialogDoneLabel = document.querySelector<HTMLSpanElement>('#dialog-done-la
 let activeQuiz: QuizSequence | undefined
 let currentQuestionIndex = 0
 let advanceTimer: number | undefined
+let orderingSlots: (number | null)[] = []
+let selectedOrderingLetter: number | null = null
+let activeOrderingForms: readonly string[] = []
+let shuffledOrderingAnswers: number[] = []
 
 type RecognitionResult = { transcript: string }
 type RecognitionEvent = { results: ArrayLike<ArrayLike<RecognitionResult> & { isFinal: boolean }> }
@@ -279,6 +416,7 @@ type RecognitionInstance = {
   onresult: ((event: RecognitionEvent) => void) | null
   onerror: ((event: RecognitionErrorEvent) => void) | null
   onend: (() => void) | null
+  onspeechstart: (() => void) | null
   start: () => void
   abort: () => void
 }
@@ -347,6 +485,7 @@ function completeQuiz(quiz: QuizSequence) {
       ? `Lesson ${quiz.level} complete! Ready for Lesson ${nextLesson}?`
       : `You have completed Lesson ${quiz.level}!`
   dialogDoneLabel.textContent = nextLesson ? `Next: Lesson ${nextLesson}` : 'Back to lessons'
+  orderingActivity.hidden = true
   sentenceActivity.hidden = true
   quizProgress.hidden = true
   quizOptions.hidden = true
@@ -356,39 +495,41 @@ function completeQuiz(quiz: QuizSequence) {
 
 renderStreak()
 
-function speakQuestion() {
-  if (!activeQuiz || !('speechSynthesis' in window)) return
+function shuffleOrderingAnswers() {
+  shuffledOrderingAnswers = Array.from({ length: activeOrderingForms.length }, (_, index) => index)
+  for (let index = shuffledOrderingAnswers.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1))
+    ;[shuffledOrderingAnswers[index], shuffledOrderingAnswers[swapIndex]] = [shuffledOrderingAnswers[swapIndex]!, shuffledOrderingAnswers[index]!]
+  }
+}
 
-  const quiz = activeQuiz
-  const question = quiz.questions[currentQuestionIndex]
-  if (!question) return
+function renderOrderingActivity(focusTarget?: string) {
+  const placedLetters = new Set(orderingSlots.filter((letterIndex): letterIndex is number => letterIndex !== null))
+  orderingSlotsElement.innerHTML = orderingSlots.map((letterIndex, slotIndex) => `
+    <button class="ordering-slot${letterIndex === null ? ' is-empty' : letterIndex === slotIndex ? ' is-correct' : ' is-wrong'}" type="button" data-slot-index="${slotIndex}" aria-label="Position ${slotIndex + 1}${letterIndex === null ? ', empty' : `, ${activeOrderingForms[letterIndex]}, ${letterIndex === slotIndex ? 'correct' : 'not correct'}`}" aria-dropeffect="move">
+      <span class="ordering-slot-number" aria-hidden="true">${slotIndex + 1}</span>
+      <span class="ordering-slot-letter" lang="ta">${letterIndex === null ? '' : activeOrderingForms[letterIndex]}</span>
+    </button>
+  `).join('')
+  orderingOptionsElement.innerHTML = shuffledOrderingAnswers.filter((letterIndex) => !placedLetters.has(letterIndex)).map((letterIndex) => `
+    <button class="ordering-option${selectedOrderingLetter === letterIndex ? ' is-selected' : ''}" type="button" draggable="true" data-option-index="${letterIndex}" aria-pressed="${selectedOrderingLetter === letterIndex}" lang="ta">${activeOrderingForms[letterIndex]}</button>
+  `).join('')
+  const quiz = activeQuiz!
+  const totalForms = quiz.questions.length * activeOrderingForms.length
+  const totalPlacedForms = currentQuestionIndex * activeOrderingForms.length + placedLetters.size
+  quizProgressLabel.textContent = `SERIES ${currentQuestionIndex + 1} OF ${quiz.questions.length} · FORMS ${placedLetters.size}/${activeOrderingForms.length}`
+  quizProgress.setAttribute('aria-label', 'Lesson 6 consonant series progress')
+  quizProgress.setAttribute('aria-valuemax', String(totalForms))
+  quizProgress.setAttribute('aria-valuenow', String(totalPlacedForms))
+  quizProgressFill.style.width = `${(totalPlacedForms / totalForms) * 100}%`
+  if (focusTarget) orderingActivity.querySelector<HTMLButtonElement>(focusTarget)?.focus()
+}
 
-  const voices = window.speechSynthesis.getVoices()
-  const tamilVoice = voices.find((voice) => voice.lang.toLowerCase().startsWith('ta'))
-  const englishVoice = voices.find((voice) => voice.lang.toLowerCase().startsWith('en'))
-  const promptText = quiz.kind === 'VOWEL'
-    ? `Which letter makes the ${question.spokenSound} sound?`
-    : quiz.kind === 'CONSONANT'
-      ? `Which consonant makes the ${question.sound} sound?`
-      : quiz.kind === 'FRUIT'
-        ? `What is the Tamil word for ${question.sound}?`
-        : quiz.kind === 'SENTENCE'
-          ? 'Read this Tamil sentence aloud.'
-          : `Which Tamil word means ${question.sound}?`
-  const prompt = new SpeechSynthesisUtterance(promptText)
-  prompt.lang = 'en-US'
-  prompt.rate = 0.92
-  if (englishVoice) prompt.voice = englishVoice
-
-  const letterSound = new SpeechSynthesisUtterance(tamilVoice ? question.letter : question.spokenSound)
-  letterSound.lang = tamilVoice?.lang ?? englishVoice?.lang ?? 'en-US'
-  letterSound.rate = 0.82
-  if (tamilVoice) letterSound.voice = tamilVoice
-  else if (englishVoice) letterSound.voice = englishVoice
-
-  window.speechSynthesis.cancel()
-  window.speechSynthesis.speak(prompt)
-  window.speechSynthesis.speak(letterSound)
+function placeOrderingLetter(letterIndex: number, slotIndex: number, focusTarget?: string) {
+  orderingSlots = orderingSlots.map((placedLetter) => placedLetter === letterIndex ? null : placedLetter)
+  orderingSlots[slotIndex] = letterIndex
+  selectedOrderingLetter = null
+  renderOrderingActivity(focusTarget)
 }
 
 function renderQuizQuestion() {
@@ -399,9 +540,30 @@ function renderQuizQuestion() {
 
   const quiz = activeQuiz
   const question = quiz.questions[currentQuestionIndex]!
-  if (quiz.kind === 'SENTENCE') {
-    dialogTitle.textContent = 'Read this sentence aloud'
-    quizProgressLabel.textContent = `SENTENCE ${currentQuestionIndex + 1} OF ${quiz.questions.length}`
+  if (quiz.kind === 'ORDERING') {
+    const series = consonantVowelSeries[currentQuestionIndex]!
+    activeOrderingForms = series.forms
+    shuffleOrderingAnswers()
+    dialogTitle.textContent = `Arrange the ${series.consonant} series`
+    orderingSlots = Array.from({ length: activeOrderingForms.length }, () => null)
+    selectedOrderingLetter = null
+    orderingCheckButton.disabled = false
+    orderingActivity.hidden = false
+    sentenceActivity.hidden = true
+    quizOptions.hidden = true
+    quizFeedback.hidden = false
+    quizFeedback.textContent = `Arrange the vowel forms for ${series.consonant}. Drag each form or tap a form and a box.`
+    quizFeedback.className = 'quiz-feedback'
+    quizProgress.hidden = false
+    quizCompletion.hidden = true
+    renderOrderingActivity()
+    return
+  }
+  orderingActivity.hidden = true
+  if (quiz.kind === 'SENTENCE' || quiz.kind === 'WORD_READING') {
+    const isWordReading = quiz.kind === 'WORD_READING'
+    dialogTitle.textContent = isWordReading ? 'Read this Tamil word aloud' : 'Read this sentence aloud'
+    quizProgressLabel.textContent = `${isWordReading ? 'WORD' : 'SENTENCE'} ${currentQuestionIndex + 1} OF ${quiz.questions.length}`
     quizProgress.setAttribute('aria-label', `Lesson ${quiz.level} progress`)
     quizProgress.setAttribute('aria-valuemax', String(quiz.questions.length))
     quizProgress.setAttribute('aria-valuenow', String(currentQuestionIndex + 1))
@@ -412,12 +574,11 @@ function renderQuizQuestion() {
     sentenceListen.disabled = false
     sentenceListen.textContent = 'Start speaking'
     quizOptions.hidden = true
-    quizFeedback.textContent = 'Tap the button, then say the sentence.'
+    quizFeedback.textContent = isWordReading ? 'Tap the button, then read the word aloud.' : 'Tap the button, then say the sentence.'
     quizFeedback.className = 'quiz-feedback'
     quizFeedback.hidden = false
     quizProgress.hidden = false
     quizCompletion.hidden = true
-    speakQuestion()
     return
   }
   sentenceActivity.hidden = true
@@ -432,9 +593,9 @@ function renderQuizQuestion() {
   ]
 
   if (quiz.kind === 'VOWEL') {
-    dialogTitle.textContent = currentQuestionIndex === 0 ? "Which letter is 'a'?" : `Which letter is '${question.sound}'?`
+    dialogTitle.textContent = `Which vowel makes the ${question.sound} sound, as in "${question.example}"?`
   } else if (quiz.kind === 'CONSONANT') {
-    dialogTitle.textContent = `Which consonant makes the '${question.sound}' sound?`
+    dialogTitle.textContent = `Which consonant makes the '${question.sound}' sound, ${question.pronunciationHint}?`
   } else if (quiz.kind === 'FRUIT') {
     dialogTitle.textContent = `What is the Tamil word for ${question.sound}? `
     if (question.picture) {
@@ -476,23 +637,23 @@ function renderQuizQuestion() {
   quizOptions.hidden = false
   quizProgress.hidden = false
   quizCompletion.hidden = true
-  speakQuestion()
 }
 
 function openLesson(lesson: (typeof lessons)[number]) {
-  const quiz = quizSequences[lesson.number]
+  const quiz = lesson.number === 7
+    ? createDailyWordQuiz()
+    : quizSequences[lesson.number as keyof typeof quizSequences]
   const isQuizLesson = quiz !== undefined
   activeQuiz = quiz
   dialogDoneLabel.textContent = 'Back to lessons'
   dialogEyebrow.textContent = `LESSON ${String(lesson.number).padStart(2, '0')} · ${quiz?.kind ?? lesson.sound.toUpperCase()}${quiz ? ' QUIZ' : ''}`
-  dialogTitle.textContent = quiz?.kind === 'VOWEL' ? "Which letter is 'a'?" : quiz?.kind === 'READING' ? `Which word means ${quiz.questions[0].sound}?` : quiz?.kind === 'FRUIT' ? `What is the Tamil word for ${quiz.questions[0].sound}?` : quiz?.kind === 'SENTENCE' ? 'Read this sentence aloud' : quiz ? `Which consonant makes the '${quiz.questions[0].sound}' sound?` : `Say ${lesson.letter}!`
+  dialogTitle.textContent = quiz?.kind === 'VOWEL' ? "Which letter is 'a'?" : quiz?.kind === 'READING' ? `Which word means ${quiz.questions[0].sound}?` : quiz?.kind === 'FRUIT' ? `What is the Tamil word for ${quiz.questions[0].sound}?` : quiz?.kind === 'SENTENCE' ? 'Read this sentence aloud' : quiz?.kind === 'WORD_READING' ? 'Read this Tamil word aloud' : quiz?.kind === 'ORDERING' ? 'Arrange the Tamil letters' : quiz ? `Which consonant makes the '${quiz.questions[0].sound}' sound?` : `Say ${lesson.letter}!`
   dialogLetter.textContent = lesson.letter
   dialogWord.textContent = lesson.word
   dialogMeaning.textContent = lesson.meaning
   dialogPrompt.textContent = `Can you hear ${lesson.letter} at the start of ${lesson.word}?`
 
   quizPanel.hidden = !isQuizLesson
-  speakButton.hidden = !isQuizLesson
   wordCard.hidden = isQuizLesson
   dialogPrompt.hidden = isQuizLesson
   if (quiz) {
@@ -511,14 +672,109 @@ document.querySelector<HTMLDivElement>('.lesson-grid')!.addEventListener('click'
   if (lesson) openLesson(lesson)
 })
 
-speakButton.addEventListener('click', speakQuestion)
+orderingActivity.addEventListener('click', (event) => {
+  if (advanceTimer !== undefined) return
+  const target = event.target
+  if (!(target instanceof Element)) return
+  const optionButton = target.closest<HTMLButtonElement>('[data-option-index]')
+  const slotButton = target.closest<HTMLButtonElement>('[data-slot-index]')
+
+  if (optionButton) {
+    selectedOrderingLetter = Number(optionButton.dataset.optionIndex)
+    quizFeedback.textContent = `Selected ${activeOrderingForms[selectedOrderingLetter]}. Choose a position.`
+    quizFeedback.className = 'quiz-feedback'
+    renderOrderingActivity(`[data-option-index="${selectedOrderingLetter}"]`)
+  } else if (slotButton) {
+    const slotIndex = Number(slotButton.dataset.slotIndex)
+    if (selectedOrderingLetter !== null) {
+      placeOrderingLetter(selectedOrderingLetter, slotIndex, `[data-slot-index="${slotIndex}"]`)
+      quizFeedback.textContent = 'Letter placed. Keep going!'
+      quizFeedback.className = 'quiz-feedback'
+    } else if (orderingSlots[slotIndex] !== null) {
+      orderingSlots[slotIndex] = null
+      renderOrderingActivity(`[data-slot-index="${slotIndex}"]`)
+      quizFeedback.textContent = 'Letter returned to the choices.'
+      quizFeedback.className = 'quiz-feedback'
+    }
+  }
+})
+
+orderingActivity.addEventListener('dragstart', (event) => {
+  const target = event.target
+  if (!(target instanceof Element) || !event.dataTransfer) return
+  const optionButton = target.closest<HTMLButtonElement>('[data-option-index]')
+  const slotButton = target.closest<HTMLButtonElement>('[data-slot-index]')
+  if (optionButton) {
+    event.dataTransfer.setData('text/plain', `option:${optionButton.dataset.optionIndex}`)
+  } else if (slotButton && orderingSlots[Number(slotButton.dataset.slotIndex)] !== null) {
+    event.dataTransfer.setData('text/plain', `slot:${slotButton.dataset.slotIndex}`)
+  } else {
+    event.preventDefault()
+  }
+})
+
+orderingActivity.addEventListener('dragover', (event) => {
+  if (event.target instanceof Element && event.target.closest('.ordering-slot, .ordering-options')) event.preventDefault()
+})
+
+orderingActivity.addEventListener('drop', (event) => {
+  const target = event.target
+  if (!(target instanceof Element) || !event.dataTransfer) return
+  const [sourceType, sourceIndexText] = event.dataTransfer.getData('text/plain').split(':')
+  const sourceIndex = Number(sourceIndexText)
+  const slotButton = target.closest<HTMLButtonElement>('[data-slot-index]')
+  if (slotButton && sourceType === 'option') {
+    event.preventDefault()
+    placeOrderingLetter(sourceIndex, Number(slotButton.dataset.slotIndex))
+  } else if (slotButton && sourceType === 'slot') {
+    event.preventDefault()
+    const fromIndex = Number(sourceIndexText)
+    const toIndex = Number(slotButton.dataset.slotIndex)
+    const displacedLetter = orderingSlots[toIndex]
+    orderingSlots[toIndex] = orderingSlots[fromIndex]
+    orderingSlots[fromIndex] = displacedLetter
+    renderOrderingActivity()
+  } else if (target.closest('.ordering-options') && sourceType === 'slot') {
+    event.preventDefault()
+    orderingSlots[sourceIndex] = null
+    renderOrderingActivity()
+  }
+})
+
+orderingCheckButton.addEventListener('click', () => {
+  const quiz = activeQuiz
+  if (quiz?.kind !== 'ORDERING' || advanceTimer !== undefined) return
+  if (orderingSlots.some((letterIndex) => letterIndex === null)) {
+    quizFeedback.textContent = 'Fill every box before checking.'
+    quizFeedback.className = 'quiz-feedback is-wrong'
+  } else if (orderingSlots.every((letterIndex, index) => letterIndex === index)) {
+    const nextSeries = consonantVowelSeries[currentQuestionIndex + 1]
+    quizFeedback.textContent = nextSeries
+      ? `Correct! Next is the ${nextSeries.consonant} series.`
+      : 'Perfect! You completed every consonant series.'
+    quizFeedback.className = 'quiz-feedback is-correct'
+    orderingCheckButton.disabled = true
+    advanceTimer = window.setTimeout(() => {
+      advanceTimer = undefined
+      if (currentQuestionIndex === quiz.questions.length - 1) {
+        completeQuiz(quiz)
+      } else {
+        currentQuestionIndex += 1
+        renderQuizQuestion()
+      }
+    }, 900)
+  } else {
+    quizFeedback.textContent = 'Not quite. Try moving the letters into the correct order.'
+    quizFeedback.className = 'quiz-feedback is-wrong'
+  }
+})
 
 sentenceListen.addEventListener('click', () => {
   const recognitionWindow = window as Window & { SpeechRecognition?: RecognitionConstructor; webkitSpeechRecognition?: RecognitionConstructor }
   const Recognition = recognitionWindow.SpeechRecognition ?? recognitionWindow.webkitSpeechRecognition
   const quiz = activeQuiz
   const question = quiz?.questions[currentQuestionIndex]
-  if (!Recognition || quiz?.kind !== 'SENTENCE' || !question) {
+  if (!Recognition || (quiz?.kind !== 'SENTENCE' && quiz?.kind !== 'WORD_READING') || !question) {
     quizFeedback.textContent = 'Tamil voice recognition is not available here. Try the latest version of Chrome.'
     quizFeedback.className = 'quiz-feedback is-wrong'
     return
@@ -527,20 +783,31 @@ sentenceListen.addEventListener('click', () => {
   const recognition = new Recognition()
   activeRecognition = recognition
   recognition.lang = 'ta-IN'
-  recognition.interimResults = false
-  recognition.maxAlternatives = 1
+  recognition.interimResults = true
+  recognition.maxAlternatives = 5
   sentenceListen.disabled = true
   sentenceListen.textContent = 'Listening…'
   sentenceHeard.textContent = ''
-  quizFeedback.textContent = 'Listening. Say the whole sentence.'
+  const isWordReading = quiz.kind === 'WORD_READING'
+  quizFeedback.textContent = isWordReading ? 'Listening. Read the word aloud.' : 'Listening. Say the whole sentence.'
   quizFeedback.className = 'quiz-feedback'
 
+  recognition.onspeechstart = () => {
+    quizFeedback.textContent = isWordReading ? 'I hear you. Keep reading the word.' : 'I hear you. Keep reading the sentence.'
+  }
   recognition.onresult = (event) => {
-    const transcript = event.results[event.results.length - 1]?.[0]?.transcript.trim() ?? ''
-    sentenceHeard.textContent = transcript ? `I heard: ${transcript}` : 'I could not hear the sentence. Try again.'
-    const normalizeSentence = (text: string) => text.normalize('NFC').replace(/[\p{P}\p{S}]/gu, '').replace(/\s+/g, ' ').trim()
-    if (transcript && normalizeSentence(transcript) === normalizeSentence(question.letter)) {
-      quizFeedback.textContent = 'That matches! Well done.'
+    const latestResult = event.results[event.results.length - 1]
+    const alternatives = latestResult ? Array.from(latestResult, ({ transcript }) => transcript.trim()) : []
+    const expected = normalizeSpeech(question.letter)
+    const matchingAlternative = alternatives.find((alternative) => normalizeSpeech(alternative) === expected)
+    const transcript = matchingAlternative ?? alternatives[0] ?? ''
+    sentenceHeard.textContent = transcript
+      ? `${latestResult?.isFinal ? 'I heard' : 'Hearing'}: ${transcript}`
+      : ''
+    if (!latestResult?.isFinal) return
+
+    if (matchingAlternative) {
+      quizFeedback.textContent = isWordReading ? 'That word matches! Well done.' : 'That matches! Well done.'
       quizFeedback.className = 'quiz-feedback is-correct'
       advanceTimer = window.setTimeout(() => {
         advanceTimer = undefined
@@ -552,18 +819,22 @@ sentenceListen.addEventListener('click', () => {
         }
       }, 1300)
     } else {
-      quizFeedback.textContent = 'Not quite. Listen and try reading it again.'
+      quizFeedback.textContent = `Not quite. Listen and try reading the ${isWordReading ? 'word' : 'sentence'} again.`
       quizFeedback.className = 'quiz-feedback is-wrong'
     }
   }
   recognition.onerror = (event) => {
     sentenceListen.disabled = false
     sentenceListen.textContent = 'Try again'
-    quizFeedback.textContent = event.error === 'not-allowed'
-      ? 'Microphone access is blocked. Allow microphone access in Chrome site settings, then try again.'
-      : event.error === 'no-speech'
-        ? 'I did not hear anything. Try again.'
-        : 'I could not recognize that. Please try again.'
+    quizFeedback.textContent = event.error === 'not-allowed' || event.error === 'service-not-allowed'
+      ? 'Microphone or Tamil speech access is blocked. Allow microphone access in Chrome site settings, then try again.'
+      : event.error === 'audio-capture'
+        ? 'Chrome could not access a microphone. Check that one is connected and enabled.'
+        : event.error === 'network'
+          ? 'Tamil speech recognition needs an internet connection. Check your connection and try again.'
+          : event.error === 'no-speech'
+            ? 'I did not hear speech. Move closer to the microphone and try again.'
+            : 'Speech recognition stopped unexpectedly. Please try again.'
     quizFeedback.className = 'quiz-feedback is-wrong'
   }
   recognition.onend = () => {
@@ -632,7 +903,6 @@ lessonDialog.addEventListener('close', () => {
   advanceTimer = undefined
   activeRecognition?.abort()
   activeRecognition = undefined
-  if ('speechSynthesis' in window) window.speechSynthesis.cancel()
 })
 
 lessonDialog.addEventListener('click', (event) => {
